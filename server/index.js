@@ -8,7 +8,7 @@ const app = express();
 // --- PRODUCTION CORS ---
 // Replace the URL with your actual Vercel link once you deploy
 app.use(cors({
-    origin: ["http://localhost:3000", "https://student-helpdesk-2-0.vercel.app/"]
+    origin: "https://your-app-name.vercel.app"
 }));
 
 app.use(express.json());
