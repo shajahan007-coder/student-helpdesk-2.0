@@ -10,7 +10,7 @@ function App() {
 
   // --- 1. SET YOUR RENDER URL HERE ---
   // Make sure this matches the link Render gave you!
-  const API_URL = "https://your-backend-name.onrender.com";
+  const API_URL = "https://student-helpdesk-2-0-backend.onrender.com";
 
   const fetchTickets = () => {
     fetch(`${API_URL}/all-tickets`)
