@@ -1,0 +1,75 @@
+/* The Container */
+.dashboard {
+  text-align: center;
+  padding: 40px;
+  background-color: #f4f7f6;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* The Form */
+.ticket-form {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.ticket-input {
+  padding: 12px;
+  width: 300px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.ticket-input:focus {
+  border-color: #4a90e2;
+}
+
+.submit-btn {
+  padding: 12px 24px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #357abd;
+  transform: translateY(-2px);
+}
+
+/* The Grid */
+.ticket-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 250px;
+}
+
+.sort-select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}

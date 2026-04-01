@@ -1,0 +1,49 @@
+/* src/components/TicketCard.css */
+
+.card {
+  border: 2px solid #ddd; /* Normal border */
+  margin: 15px;
+  padding: 20px;
+  width: 280px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+/* This is the class that changes the color for Resolved tickets */
+.resolved {
+  background-color: #d4edda !important; /* Light Green */
+  border-color: #28a745 !important;
+}
+
+.status-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.resolve-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
