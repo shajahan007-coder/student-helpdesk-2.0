@@ -6,23 +6,28 @@ function App() {
   const [subject, setSubject] = useState("");
   const [tickets, setTickets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, setBy] = useState("newest"); // Default to lowercase "newest"
+  const [sortBy, setBy] = useState("newest");
 
-  // 1. Fetch data from Cloud
+  // --- 1. SET YOUR RENDER URL HERE ---
+  // Make sure this matches the link Render gave you!
+  const API_URL = "https://your-backend-name.onrender.com";
+
   const fetchTickets = () => {
-    fetch('http://localhost:5000/all-tickets')
+    fetch(`${API_URL}/all-tickets`)
       .then(res => res.json())
       .then(data => setTickets(data))
-      .catch(err => console.log(err));
+      .catch(err => console.error("Fetch error:", err));
   };
 
   useEffect(() => { fetchTickets(); }, []);
 
-  // 2. Action Handlers (Create, Resolve, Delete)
+  // --- 2. Action Handlers (Fixed Syntax) ---
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!subject) return;
-    fetch('http://localhost:5000/tickets', {
+
+    // Fixed: The parentheses now wrap both the URL and the options object
+    fetch(`${API_URL}/tickets`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ subject })
@@ -33,16 +38,22 @@ function App() {
   };
 
   const resolveTicket = (id) => {
-    fetch(`http://localhost:5000/tickets/${id}`, { method: 'PUT' })
-      .then(() => fetchTickets());
+    // Fixed: Parentheses were closing after the URL, now they close after the object
+    fetch(`${API_URL}/tickets/${id}`, { 
+      method: 'PUT' 
+    })
+    .then(() => fetchTickets());
   };
 
   const deleteTicket = (id) => {
-    fetch(`http://localhost:5000/tickets/${id}`, { method: 'DELETE' })
-      .then(() => fetchTickets());
+    // Fixed: Updated from localhost to API_URL
+    fetch(`${API_URL}/tickets/${id}`, { 
+      method: 'DELETE' 
+    })
+    .then(() => fetchTickets());
   };
 
-  // 3. DATA LOGIC: Filter first, then Sort the filtered results
+  // --- 3. Data Logic ---
   const filteredTickets = tickets.filter(t => 
     t.subject.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -57,21 +68,18 @@ function App() {
       <h1>Student Helpdesk 2.0</h1>
       
       <div className="controls">
-        {/* Search Bar */}
         <input 
           className="search-input"
           placeholder="🔍 Search tickets..." 
           onChange={(e) => setSearchTerm(e.target.value)} 
         />
 
-        {/* Sort Dropdown */}
         <select className="sort-select" onChange={(e) => setBy(e.target.value)}>
           <option value="newest">Newest First</option>
           <option value="oldest">Oldest First</option>
         </select>
       </div>
 
-      {/* Ticket Creation Form */}
       <form onSubmit={handleSubmit} className="ticket-form">
         <input 
           className="ticket-input"
@@ -82,7 +90,6 @@ function App() {
         <button type="submit" className="submit-btn">Submit</button>
       </form>
 
-      {/* Grid Displaying the Sorted and Filtered Results */}
       <div className="ticket-grid">
         {sortedTickets.map(t => (
           <TicketCard 
