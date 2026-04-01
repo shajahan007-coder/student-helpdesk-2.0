@@ -5,10 +5,11 @@ const cors = require('cors');
 
 const app = express();
 
-// --- PRODUCTION CORS ---
-// Replace the URL with your actual Vercel link once you deploy
+// --- FIXED PRODUCTION CORS ---
 app.use(cors({
-    origin: "https://your-app-name.vercel.app"
+    origin: "https://student-helpdesk-2-0.vercel.app", // Use your real Vercel URL
+    methods: ["GET", "POST", "PUT", "DELETE"],       // Explicitly allow these actions
+    credentials: true
 }));
 
 app.use(express.json());
