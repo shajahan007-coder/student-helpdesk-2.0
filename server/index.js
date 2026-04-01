@@ -4,7 +4,13 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+
+// --- PRODUCTION CORS ---
+// Replace the URL with your actual Vercel link once you deploy
+app.use(cors({
+    origin: ["http://localhost:3000", "https://student-helpdesk-2-0.vercel.app/"]
+}));
+
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI)
@@ -44,4 +50,4 @@ app.delete('/tickets/:id', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
