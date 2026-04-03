@@ -9,7 +9,8 @@ function Signup() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const API_URL = "https://student-helpdesk-2-0-backend.onrender.com";
+ // Replace the hardcoded line with this:
+const API_URL = process.env.REACT_APP_API_URL || "https://student-helpdesk-2-0-backend.onrender.com";
 
   const handleSignup = async (e) => {
     e.preventDefault();

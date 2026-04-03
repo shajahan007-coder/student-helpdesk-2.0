@@ -1,3 +1,4 @@
+import React from 'react'; // Added for build safety
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
@@ -15,7 +16,11 @@ function Home() {
         </div>
       </div>
       <div className="hero-image">
-         <img src="https://via.placeholder.com/500x300" alt="Helpdesk Illustration" />
+         {/* Pro Tip: Replace this with a real illustration from Undraw or Lucide-React later */}
+         <img 
+           src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=80&w=500" 
+           alt="Helpdesk Illustration" 
+         />
       </div>
     </div>
   );

@@ -1,11 +1,15 @@
 import React from 'react';
 import './StatsCards.css';
+import { Link, useNavigate } from 'react-router-dom';
 
-function StatsCards({ tickets }) {
-  // Calculate stats logic
-  const total = tickets.length;
-  const pending = tickets.filter(t => t.status === 'Open').length;
-  const resolved = tickets.filter(t => t.status === 'Resolved').length;
+function StatsCards({ tickets = [] }) { // Add = [] here as a fallback
+  // OR use optional chaining
+  const total = tickets?.length || 0;
+  const pending = tickets?.filter(t => t.status === 'Open').length || 0;
+  const resolved = tickets?.filter(t => t.status === 'Resolved').length || 0;
+  
+  // ... rest of your return code
+}
 
   return (
     <div className="stats-container">

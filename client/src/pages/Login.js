@@ -8,10 +8,9 @@ function Login({ setUser }) {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const API_URL = "https://student-helpdesk-2-0-backend.onrender.com";
-// Replace the hardcoded line with this:
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
-  
+ // This is the correct, dynamic way to handle your API URL
+const API_URL = process.env.REACT_APP_API_URL || "https://student-helpdesk-2-0-backend.onrender.com";
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");

@@ -4,7 +4,8 @@ import './StudentDashboard.css';
 function StudentDashboard({ user }) {
   const [subject, setSubject] = useState("");
   const [myTickets, setMyTickets] = useState([]);
-  const API_URL = "https://student-helpdesk-2-0-backend.onrender.com";
+ // Replace the hardcoded line with this:
+const API_URL = process.env.REACT_APP_API_URL || "https://student-helpdesk-2-0-backend.onrender.com";
 
  const fetchMyTickets = async () => {
   // Use the new dynamic route we just made
@@ -13,7 +14,9 @@ function StudentDashboard({ user }) {
   setMyTickets(data);
 };
 
-  useEffect(() => { fetchMyTickets(); }, []);
+ useEffect(() => {
+  fetchMyTickets();
+}, [user.email]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

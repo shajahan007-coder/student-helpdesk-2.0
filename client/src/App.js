@@ -1,37 +1,39 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // 1. Added useEffect here
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
+import Home from './pages/Home'; // 2. Make sure these are imported
+import Login from './pages/Login';
+import StudentDashboard from './pages/StudentDashboard';
+import AdminPanel from './pages/AdminPanel';
 
 function App() {
-  // This state will hold { email: "...", role: "admin/student" }
   const [user, setUser] = useState(null); 
 
   useEffect(() => {
-  const loggedInUser = localStorage.getItem('user');
-  if (loggedInUser) {
-    const foundUser = JSON.parse(loggedInUser);
-    setUser(foundUser);
-  }
-}, []);
+    const loggedInUser = localStorage.getItem('user');
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+    }
+  }, []);
 
-// This automatically picks the right URL based on where the app is running
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-  <Router>
+  // 3. You MUST have a return () statement around your HTML/JSX
+  return (
+    <Router>
       <Navbar user={user} setUser={setUser} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
 
-        {/* PROTECTED: Only logged-in Students or Admins */}
         <Route path="/dashboard" element={
           <ProtectedRoute user={user}>
             <StudentDashboard user={user} />
           </ProtectedRoute>
         } />
 
-        {/* PROTECTED: ONLY Admins can see this */}
         <Route path="/admin" element={
           <ProtectedRoute user={user} adminOnly={true}>
             <AdminPanel user={user} />
@@ -39,7 +41,7 @@ const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
         } />
       </Routes>
     </Router>
-  
+  );
 }
 
 export default App;

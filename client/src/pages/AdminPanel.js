@@ -3,14 +3,18 @@ import StatsCards from '../components/StatsCards';
 import TicketCard from '../components/TicketCard';
 import './AdminPanel.css';
 
-function AdminPanel({ tickets, onResolve, onDelete }) {
+function AdminPanel({ tickets = [], onResolve, onDelete }) { // Add default []
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Logic: Filter tickets based on email OR subject
-  const filteredTickets = tickets.filter(t => 
-    t.studentEmail.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    t.subject.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Use Optional Chaining (?.) and Nullish Coalescing (|| "") 
+  // to prevent crashes if studentEmail is missing
+  const filteredTickets = tickets.filter(t => {
+    const email = t.studentEmail?.toLowerCase() || "";
+    const subject = t.subject?.toLowerCase() || "";
+    const query = searchQuery.toLowerCase();
+    
+    return email.includes(query) || subject.includes(query);
+  });
 
   return (
     <div className="admin-page">
