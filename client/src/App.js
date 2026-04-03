@@ -7,16 +7,26 @@ function App() {
   const [tickets, setTickets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setBy] = useState("newest");
+  const [loading, setLoading] = useState(true);
 
   // --- 1. SET YOUR RENDER URL HERE ---
   // Make sure this matches the link Render gave you!
   const API_URL = "https://student-helpdesk-2-0-backend.onrender.com";
 
   const fetchTickets = () => {
+    setLoading(true);
     fetch(`${API_URL}/all-tickets`)
       .then(res => res.json())
-      .then(data => setTickets(data))
-      .catch(err => console.error("Fetch error:", err));
+      .then(data => {
+        setTickets(data);
+        setLoading(false);
+      }
+      )
+      .catch(err =>{ 
+        console.error("Fetch error:", err)
+        setLoading(false);
+        }
+      );
   };
 
   useEffect(() => { fetchTickets(); }, []);
@@ -100,6 +110,31 @@ function App() {
           />
         ))}
       </div>
+
+      <div className="ticket-grid">
+        {loading ? (
+          <div className='loading-container'>
+          <div className='spinner'></div>
+          <p>Waking up the server... Please wait.</p>
+          </div>
+        ) : sortedTickets.length === 0 ? (
+          <p>No Ticket Found. Great job!</p>
+
+        ) : (
+          sortedTickets.map(t => (
+            <TicketCard 
+              key={t._id} 
+              ticket={t} 
+              onResolve={resolveTicket} 
+              onDelete={deleteTicket} 
+             />
+
+            ))
+          )}
+        
+        
+      </div>
+
     </div>
   );
 }
