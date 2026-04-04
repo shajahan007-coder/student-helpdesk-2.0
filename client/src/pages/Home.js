@@ -1,6 +1,6 @@
 import React from 'react'; // Added for build safety
 import { useNavigate } from 'react-router-dom';
-import './Home.css';
+import Home from './pages/Home';
 
 function Home() {
   const navigate = useNavigate();
