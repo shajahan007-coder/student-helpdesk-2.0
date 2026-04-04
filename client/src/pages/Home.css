@@ -1,6 +1,20 @@
 .blue-text {
-  background: linear-gradient(90deg, #3498db, #2980b9);
+  /* 1. More vibrant, high-contrast gradient (Indigo to Electric Blue) */
+  background: linear-gradient(135deg, #6366f1 0%, #2563eb 100%);
+  
+  /* 2. Standard properties for the clipping effect */
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: bold;
+  
+  /* 3. Typography Upgrades */
+  font-weight: 800; /* Extra bold for better visibility of the gradient */
+  letter-spacing: -0.02em; /* Tighter spacing looks more modern */
+  
+  /* 4. The "Glow" Hack */
+  /* This prevents the text from looking 'flat' on white backgrounds */
+  filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.1));
+  
+  /* 5. Smooth appearance if you're using transitions */
+  display: inline-block;
 }

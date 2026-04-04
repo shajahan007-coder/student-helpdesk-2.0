@@ -1,49 +1,92 @@
 /* src/components/TicketCard.css */
 
 .card {
-  border: 2px solid #ddd; /* Normal border */
-  margin: 15px;
-  padding: 20px;
-  width: 280px;
-  border-radius: 12px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  text-align: left;
+  background: #ffffff;
+  margin: 16px;
+  padding: 24px;
+  width: 320px; /* Slightly wider for better readability */
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
 }
 
-/* This is the class that changes the color for Resolved tickets */
-.resolved {
-  background-color: #d4edda !important; /* Light Green */
-  border-color: #28a745 !important;
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtle accent for Resolved tickets instead of full green background */
+.card.resolved {
+  border-left: 5px solid #10b981;
+  background: linear-gradient(to right, #f0fdf4, #ffffff);
+}
+
+/* Header style for the Subject */
+.card h4 {
+  font-size: 1.1rem;
+  color: #1e293b;
+  font-weight: 700;
+  margin: 0;
 }
 
 .status-label {
-  font-weight: bold;
-  color: #555;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Status Badge Style */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+}
+
+.status-open { background: #fee2e2; color: #ef4444; }
+.status-resolved { background: #d1fae5; color: #10b981; }
+
+/* Buttons Container */
+.button-group {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .resolve-btn {
-  background-color: #28a745;
+  background-color: #2563eb; /* Modern Blue */
   color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom: 8px;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+.resolve-btn:hover {
+  background-color: #1d4ed8;
 }
 
 .delete-btn {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100%;
+  background-color: transparent;
+  color: #94a3b8; /* Slate-400 for a "secondary" look */
+  font-weight: 500;
+  font-size: 0.85rem;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
 }
 
 .delete-btn:hover {
-  background-color: #c82333;
+  color: #ef4444;
+  background-color: #fef2f2;
 }

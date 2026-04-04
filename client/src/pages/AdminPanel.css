@@ -1,42 +1,74 @@
+/* --- The Main Header Section --- */
 .admin-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  padding: 10px 0;
+  border-bottom: 2px solid #f1f5f9; /* Subtle separator */
 }
 
+.admin-header h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a; /* Deep Slate-900 */
+  letter-spacing: -0.02em;
+}
+
+/* --- 🔍 The Search Bar Container --- */
 .search-bar-container {
   position: relative;
-  width: 40%;
+  width: 45%; /* Slightly wider for better usability */
+  max-width: 500px;
 }
 
 .admin-search-input {
   width: 100%;
-  padding: 12px 40px 12px 15px;
-  border: 2px solid #dfe6e9;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: 0.3s;
+  padding: 14px 45px 14px 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px; /* More rounded, modern corners */
+  font-size: 0.95rem;
+  color: #1e293b;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .admin-search-input:focus {
-  border-color: #3498db;
+  border-color: #2563eb; /* Modern Indigo-600 */
   outline: none;
-  box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
+/* Moving the Icon to the Left for standard Admin UX */
 .search-icon {
   position: absolute;
-  right: 15px;
+  left: 16px; /* Switched to left side for "Search" standard */
   top: 50%;
   transform: translateY(-50%);
-  color: #b2bec3;
+  color: #94a3b8;
+  pointer-events: none;
 }
 
+/* Adjusted padding for input to accommodate left icon */
+.admin-search-input {
+  padding-left: 48px;
+}
+
+/* --- 🏜️ Empty State (No Results) --- */
 .no-results {
   text-align: center;
-  padding: 40px;
-  color: #636e72;
-  background: #f8f9fa;
-  border-radius: 8px;
+  padding: 60px 40px;
+  color: #64748b;
+  background: #ffffff;
+  border: 2px dashed #e2e8f0; /* Dashed border looks better for empty states */
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+.no-results h4 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: #334155;
 }

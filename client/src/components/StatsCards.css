@@ -1,34 +1,64 @@
 .stats-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 30px;
+  display: grid; /* Grid is more reliable than Flex for spacing */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
 }
 
 .card {
-  flex: 1;
   background: white;
-  padding: 20px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-top: 5px solid transparent;
+  padding: 30px 24px;
+  border-radius: 20px; /* Softer, more modern corners */
+  text-align: left; /* Left-aligned text looks more professional in dashboards */
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border instead of just shadow */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtle Left-Accent Bar instead of Top Bar */
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
 }
 
 .card h3 {
-  color: #7f8c8d;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
+  color: #64748b; /* Slate-500: A softer gray */
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 8px;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .stat-number {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #2c3e50;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1e293b; /* Slate-900: Darker for better contrast */
+  letter-spacing: -1px;
 }
 
-/* Color coding for importance */
-.total { border-top-color: #3498db; }
-.pending { border-top-color: #e67e22; }
-.resolved { border-top-color: #2ecc71; }
+/* Modern Color Coding (Gradients) */
+.total::before { background: #2563eb; }
+.total .stat-number { color: #2563eb; }
+
+.pending::before { background: #f59e0b; }
+.pending .stat-number { color: #f59e0b; }
+
+.resolved::before { background: #10b981; }
+.resolved .stat-number { color: #10b981; }
+
+/* Optional: Add a very subtle background glow to each card */
+.total { background: linear-gradient(to bottom right, #ffffff, #eff6ff); }
+.pending { background: linear-gradient(to bottom right, #ffffff, #fffbeb); }
+.resolved { background: linear-gradient(to bottom right, #ffffff, #f0fdf4); }

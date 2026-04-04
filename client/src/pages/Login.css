@@ -1,90 +1,121 @@
+/* --- 🏠 The Full-Screen Wrapper --- */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  min-height: 90vh; /* Better centering on large screens */
+  background: #f8fafc; /* Matches our global theme */
 }
 
+/* --- 📝 The Form Card --- */
 .login-form {
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  background: #ffffff;
+  padding: 48px;
+  border-radius: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.login-form h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+/* --- ⌨️ Modern Inputs --- */
 .login-form input {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  background: #fdfdfd;
+  transition: all 0.2s ease;
 }
 
+.login-form input:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* --- 🔘 The Action Button --- */
 .login-btn {
   width: 100%;
-  padding: 12px;
-  background: #3498db;
+  padding: 14px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: white;
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 16px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.login-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3);
+}
+
+/* --- 🎭 Role Selector (Dropdown) --- */
+.role-selector {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.role-selector select {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  cursor: pointer;
+  font-weight: 600;
+  color: #1e293b;
+  outline: none;
+}
+
+/* --- ⚠️ Error Messaging --- */
 .error-msg {
-  color: #e74c3c;
-  background: #fdf2f2;
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  color: #ef4444;
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
+/* --- 🔄 Switch Link (Login <-> Signup) --- */
 .switch-text {
-  margin-top: 20px;
+  margin-top: 24px;
   font-size: 0.9rem;
-  color: #7f8c8d;
+  color: #64748b;
 }
 
 .switch-text span {
-  color: #3498db;
+  color: #2563eb;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
+  margin-left: 4px;
 }
 
-.role-selector {
-  margin: 15px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: #7f8c8d;
-}
-
-.role-selector select {
-  padding: 5px 10px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  background: white;
-  cursor: pointer;
-}
-
-.role-selector {
-  margin: 15px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: #7f8c8d;
-}
-
-.role-selector select {
-  padding: 5px 10px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  background: white;
-  cursor: pointer;
+.switch-text span:hover {
+  text-decoration: underline;
 }
