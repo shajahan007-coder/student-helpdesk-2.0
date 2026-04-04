@@ -1,20 +1,98 @@
-.blue-text {
-  /* 1. More vibrant, high-contrast gradient (Indigo to Electric Blue) */
-  background: linear-gradient(135deg, #6366f1 0%, #2563eb 100%);
-  
-  /* 2. Standard properties for the clipping effect */
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  
-  /* 3. Typography Upgrades */
-  font-weight: 800; /* Extra bold for better visibility of the gradient */
-  letter-spacing: -0.02em; /* Tighter spacing looks more modern */
-  
-  /* 4. The "Glow" Hack */
-  /* This prevents the text from looking 'flat' on white backgrounds */
-  filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.1));
-  
-  /* 5. Smooth appearance if you're using transitions */
-  display: inline-block;
+.home-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 80vh;
+  padding: 0 10%;
+  gap: 50px;
+  background: #f8fafc;
+}
+
+.hero-content {
+  flex: 1;
+  text-align: left;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: #64748b;
+  margin-bottom: 30px;
+  max-width: 500px;
+}
+
+/* --- 🔘 Modern Hero Buttons --- */
+.hero-btns {
+  display: flex;
+  gap: 15px;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 700;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.primary-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3);
+}
+
+.secondary-btn {
+  background: white;
+  color: #1e293b;
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  font-weight: 700;
+  transition: all 0.3s;
+}
+
+.secondary-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+/* --- 🖼️ Hero Image Styling --- */
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+  .home-hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 60px 5%;
+  }
+  .hero-content {
+    text-align: center;
+  }
+  .hero-btns {
+    justify-content: center;
+  }
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
 }
