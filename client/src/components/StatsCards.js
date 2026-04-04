@@ -1,16 +1,13 @@
 import React from 'react';
 import './StatsCards.css';
-import { Link, useNavigate } from 'react-router-dom';
 
-function StatsCards({ tickets = [] }) { // Add = [] here as a fallback
-  // OR use optional chaining
+function StatsCards({ tickets = [] }) { 
+  // 1. Logic (Inside the function)
   const total = tickets?.length || 0;
   const pending = tickets?.filter(t => t.status === 'Open').length || 0;
   const resolved = tickets?.filter(t => t.status === 'Resolved').length || 0;
   
-  // ... rest of your return code
-}
-
+  // 2. Return (Inside the function)
   return (
     <div className="stats-container">
       <div className="card total">
@@ -26,7 +23,7 @@ function StatsCards({ tickets = [] }) { // Add = [] here as a fallback
         <p className="stat-number">{resolved}</p>
       </div>
     </div>
-  );
-}
+  ); 
+} // <--- THIS is the only closing brace that should be here!
 
 export default StatsCards;

@@ -14,9 +14,9 @@ const API_URL = process.env.REACT_APP_API_URL || "https://student-helpdesk-2-0-b
   setMyTickets(data);
 };
 
- useEffect(() => {
-  fetchMyTickets();
-}, [user.email]);
+useEffect(() => { 
+  fetchMyTickets(); 
+}, [fetchMyTickets]); // Add fetchMyTickets here
 
   const handleSubmit = async (e) => {
     e.preventDefault();
