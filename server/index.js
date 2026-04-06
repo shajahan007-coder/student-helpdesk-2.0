@@ -3,56 +3,58 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-require('dotenv').config(); // Load variables from .env file
+const path = require('path'); // Added for path safety
+require('dotenv').config();
 
-// Import Models
-const User = require('./models/User');
-const Ticket = require('./models/Ticket');
+// 🚀 FAIL-SAFE IMPORTS
+// We use path.join to ensure Linux resolves the directory correctly
+const User = require(path.join(__dirname, 'models', 'User'));
+const Ticket = require(path.join(__dirname, 'models', 'Ticket'));
 
 const app = express();
 
 // Middleware
 app.use(express.json());
+
+// 🛡️ UPDATED CORS
+// Note: Removed the trailing slash from the URL, which often causes 404s
 app.use(cors({
-  origin: "https://student-helpdesk-2-0.vercel.app/", // Put your REAL Vercel URL here
+  origin: "https://student-helpdesk-2-0.vercel.app", 
   methods: ["GET", "POST", "PATCH", "DELETE"],
   credentials: true
 }));
+
 // --- AUTH ROUTES ---
 
-// REGISTER
 app.post('/register', async (req, res) => {
     try {
         const { email, password, role } = req.body;
-        
-        // Hash the password (Security 101)
         const hashedPassword = await bcrypt.hash(password, 10);
         
         const newUser = new User({ 
-            email: email.toLowerCase(), 
+            email: email.toLowerCase().trim(), 
             password: hashedPassword, 
-            role 
+            role: role.toLowerCase() // Ensure role matches lowercase enum in schema
         });
         
         await newUser.save();
         res.status(201).json({ message: "User created!" });
     } catch (err) {
+        console.error("Signup Error:", err);
         res.status(400).json({ error: "Email already exists or invalid data" });
     }
 });
 
-// LOGIN
 app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email: email.toLowerCase() });
+        const user = await User.findOne({ email: email.toLowerCase().trim() });
 
         if (!user) return res.status(400).json({ error: "User not found" });
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ error: "Wrong password" });
 
-        // Create a Token using your Secret Key from .env
         const token = jwt.sign(
             { id: user._id, role: user.role }, 
             process.env.JWT_SECRET || "fallback_secret", 
@@ -67,11 +69,10 @@ app.post('/login', async (req, res) => {
 
 // --- TICKET ROUTES ---
 
-// CREATE TICKET
 app.post('/tickets', async (req, res) => {
     try {
         const { subject, studentEmail } = req.body;
-        const newTicket = new Ticket({ subject, studentEmail });
+        const newTicket = new Ticket({ subject, studentEmail: studentEmail.toLowerCase() });
         await newTicket.save();
         res.status(201).json(newTicket);
     } catch (err) {
@@ -79,7 +80,6 @@ app.post('/tickets', async (req, res) => {
     }
 });
 
-// GET ALL TICKETS (For Admin)
 app.get('/tickets', async (req, res) => {
     try {
         const tickets = await Ticket.find().sort({ createdAt: -1 });
@@ -89,7 +89,6 @@ app.get('/tickets', async (req, res) => {
     }
 });
 
-// GET TICKETS FOR A SPECIFIC STUDENT
 app.get('/my-tickets/:email', async (req, res) => {
     try {
         const tickets = await Ticket.find({ 
@@ -101,7 +100,6 @@ app.get('/my-tickets/:email', async (req, res) => {
     }
 });
 
-// DELETE TICKET
 app.delete('/tickets/:id', async (req, res) => {
     try {
         await Ticket.findByIdAndDelete(req.params.id);
@@ -111,7 +109,6 @@ app.delete('/tickets/:id', async (req, res) => {
     }
 });
 
-// UPDATE TICKET STATUS (Resolve)
 app.patch('/tickets/:id', async (req, res) => {
     try {
         const updatedTicket = await Ticket.findByIdAndUpdate(
@@ -130,9 +127,18 @@ app.patch('/tickets/:id', async (req, res) => {
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
+if (!MONGO_URI) {
+    console.error("❌ MONGO_URI is missing from Environment Variables!");
+    process.exit(1);
+}
+
 mongoose.connect(MONGO_URI)
     .then(() => {
         console.log("☁️ Secure Database Connected");
-        app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+        // Binding to 0.0.0.0 is better for Render's internal networking
+        app.listen(PORT, '0.0.0.0', () => console.log(`🚀 Server running on port ${PORT}`));
     })
-    .catch(err => console.error("❌ MongoDB Connection Error:", err));
+    .catch(err => {
+        console.error("❌ MongoDB Connection Error:", err);
+        process.exit(1);
+    });
