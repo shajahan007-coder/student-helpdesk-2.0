@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; 
+import './Login.css'; // You can reuse the same styles for Signup
+import './Signup.js'; // Create this file if you want separate styles for Signup 
 
 function Signup() {
   const [email, setEmail] = useState("");

@@ -6,6 +6,7 @@ import Home from './pages/Home'; // 2. Make sure these are imported
 import Login from './pages/Login';
 import StudentDashboard from './pages/StudentDashboard';
 import AdminPanel from './pages/AdminPanel';
+import Signup from './pages/Signup'; // Don't forget to import Signup
 
 function App() {
   const [user, setUser] = useState(null); 
@@ -26,6 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/signup" element={<Signup />} /> {/* 4. Added route for Signup */}
 
         <Route path="/dashboard" element={
           <ProtectedRoute user={user}>
