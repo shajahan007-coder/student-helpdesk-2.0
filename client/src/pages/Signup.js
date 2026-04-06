@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // You can reuse the same styles for Signup
-import './Signup.js'; // Create this file if you want separate styles for Signup 
+import './Login.css'; 
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("student"); 
+  const [role, setRole] = useState("Student"); // Default to Capitalized
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
- // Replace the hardcoded line with this:
-const API_URL = process.env.REACT_APP_API_URL || "https://student-helpdesk-2-0-backend.onrender.com";
+  const API_URL = process.env.REACT_APP_API_URL || "https://student-helpdesk-2-0-backend.onrender.com";
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -21,7 +19,11 @@ const API_URL = process.env.REACT_APP_API_URL || "https://student-helpdesk-2-0-b
       const response = await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, role })
+        body: JSON.stringify({ 
+          email: email.toLowerCase().trim(), // Clean the email
+          password, 
+          role 
+        })
       });
 
       const data = await response.json();
@@ -33,7 +35,7 @@ const API_URL = process.env.REACT_APP_API_URL || "https://student-helpdesk-2-0-b
         setError(data.error || "Registration failed");
       }
     } catch (err) {
-      setError("Server error. Please try again.");
+      setError("Server is waking up... please try again in 30 seconds.");
     }
   };
 
@@ -62,8 +64,8 @@ const API_URL = process.env.REACT_APP_API_URL || "https://student-helpdesk-2-0-b
         <div className="role-selector">
           <label>I am a:</label>
           <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="student">Student</option>
-            <option value="admin">Administrator</option>
+            <option value="Student">Student</option>
+            <option value="Admin">Administrator</option>
           </select>
         </div>
 
