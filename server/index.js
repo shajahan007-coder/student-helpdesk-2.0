@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const path = require('path'); // Added for path safety
+const path = require('path'); // Only declare this ONCE
+const fs = require('fs');     // Only declare this ONCE
 require('dotenv').config();
 
-const fs = require('fs');
-const path = require('path');
-
+// --- 📂 DEBUG LOGS ---
+// This will tell us EXACTLY what files Render sees in your models folder
 const modelsPath = path.join(__dirname, 'models');
 console.log("📂 Checking models directory at:", modelsPath);
 
@@ -18,8 +18,7 @@ if (fs.existsSync(modelsPath)) {
     console.log("❌ Models folder NOT found at that path!");
 }
 
-// 🚀 FAIL-SAFE IMPORTS
-// We use path.join to ensure Linux resolves the directory correctly
+// --- 🚀 FAIL-SAFE IMPORTS ---
 const User = require(path.join(__dirname, 'models', 'User'));
 const Ticket = require(path.join(__dirname, 'models', 'Ticket'));
 
@@ -29,7 +28,6 @@ const app = express();
 app.use(express.json());
 
 // 🛡️ UPDATED CORS
-// Note: Removed the trailing slash from the URL, which often causes 404s
 app.use(cors({
   origin: "https://student-helpdesk-2-0.vercel.app", 
   methods: ["GET", "POST", "PATCH", "DELETE"],
@@ -37,7 +35,6 @@ app.use(cors({
 }));
 
 // --- AUTH ROUTES ---
-
 app.post('/register', async (req, res) => {
     try {
         const { email, password, role } = req.body;
@@ -46,7 +43,7 @@ app.post('/register', async (req, res) => {
         const newUser = new User({ 
             email: email.toLowerCase().trim(), 
             password: hashedPassword, 
-            role: role.toLowerCase() // Ensure role matches lowercase enum in schema
+            role: role.toLowerCase() 
         });
         
         await newUser.save();
@@ -80,7 +77,6 @@ app.post('/login', async (req, res) => {
 });
 
 // --- TICKET ROUTES ---
-
 app.post('/tickets', async (req, res) => {
     try {
         const { subject, studentEmail } = req.body;
@@ -135,7 +131,6 @@ app.patch('/tickets/:id', async (req, res) => {
 });
 
 // --- SERVER START ---
-
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
@@ -147,7 +142,6 @@ if (!MONGO_URI) {
 mongoose.connect(MONGO_URI)
     .then(() => {
         console.log("☁️ Secure Database Connected");
-        // Binding to 0.0.0.0 is better for Render's internal networking
         app.listen(PORT, '0.0.0.0', () => console.log(`🚀 Server running on port ${PORT}`));
     })
     .catch(err => {
