@@ -6,6 +6,18 @@ const jwt = require('jsonwebtoken');
 const path = require('path'); // Added for path safety
 require('dotenv').config();
 
+const fs = require('fs');
+const path = require('path');
+
+const modelsPath = path.join(__dirname, 'models');
+console.log("📂 Checking models directory at:", modelsPath);
+
+if (fs.existsSync(modelsPath)) {
+    console.log("✅ Models folder found. Files inside:", fs.readdirSync(modelsPath));
+} else {
+    console.log("❌ Models folder NOT found at that path!");
+}
+
 // 🚀 FAIL-SAFE IMPORTS
 // We use path.join to ensure Linux resolves the directory correctly
 const User = require(path.join(__dirname, 'models', 'User'));
