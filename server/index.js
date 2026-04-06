@@ -13,8 +13,11 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors()); // CRITICAL: Allows Vercel to access this API
-
+app.use(cors({
+  origin: "https://student-helpdesk-2-0.vercel.app/", // Put your REAL Vercel URL here
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  credentials: true
+}));
 // --- AUTH ROUTES ---
 
 // REGISTER
