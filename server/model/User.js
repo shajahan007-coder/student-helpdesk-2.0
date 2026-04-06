@@ -5,8 +5,8 @@ const userSchema = new mongoose.Schema({
         type: String, 
         required: true, 
         unique: true,
-        lowercase: true, // 1. Prevents "Duplicate Email" errors due to capitalization
-        trim: true       // 2. Removes accidental spaces at the end of an email
+        lowercase: true, 
+        trim: true 
     },
     password: { 
         type: String, 
@@ -14,8 +14,10 @@ const userSchema = new mongoose.Schema({
     },
     role: { 
         type: String, 
-        enum: ['student', 'admin'], 
-        default: 'student' 
+        // 🚀 Updated to allow both capitalized and lowercase for safety
+        enum: ['student', 'admin', 'Student', 'Admin'], 
+        default: 'student',
+        lowercase: true // This will automatically convert 'Student' to 'student' before saving
     },
     createdAt: {
         type: Date,
